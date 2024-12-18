@@ -14,8 +14,9 @@ jobs:
     needs: say_hello
     strategy: 
       matrix:
-        os: [ ubuntu-24.04, ubuntu-22.04, ubunut-20.04, macos-13 ]      
-    runs-on: ubuntu-24.04
+        os: [ ubuntu-24.04, ubuntu-22.04, ubunut-20.04, macos-13 ]
+        python-version: [ 3.11.0, 3.10.15, 3.8.12 ]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -26,7 +27,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11.0
+          python-version: ${{ matrix.pyton-version }}
  
       - name: Install dependencies
         run: |
